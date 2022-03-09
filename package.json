@@ -22,7 +22,6 @@
   "dependencies": {
     "@hapi/boom": "^9.1.4",
     "cors": "^2.8.5",
-    "faker": "^5.5.3",
     "joi": "^17.6.0"
   },
   "engines":{
