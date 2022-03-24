@@ -1,11 +1,11 @@
 const logErrors = (err,req,res,next) =>{
     // console.log('logErrors\n\n\n\n')
-    console.log(err);
+    // console.log(err);
     next(err);
 }
 
 const errorHandler = (err, req,res, next) =>{
-    // console.log('errorHandler')
+    console.log('errorHandler')
     res.status(500).json({
         message: err.message,
         stack: err.stack
