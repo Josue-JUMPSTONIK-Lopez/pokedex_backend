@@ -18,7 +18,8 @@ router.post('/create-user', async(req, res, next) =>{
             trainerClass,
             password} = req.body
         const users = await service.createAcount(name,nickname,region,gender,age,email,trainerClass,password)
-        res.status(200).send(users)
+        console.log(users.rows)
+        res.status(200).json(users)
     } catch (error) {
         next(error)
     }
