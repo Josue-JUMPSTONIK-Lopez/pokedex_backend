@@ -18,16 +18,13 @@ router.post('/create-user', async(req, res, next) =>{
             trainerClass,
             password} = req.body
         const users = await service.createAcount(name,nickname,region,gender,age,email,trainerClass,password)
-        console.log(users.rows)
+        // console.log(users.rows)
         res.status(200).json(users)
     } catch (error) {
         next(error)
     }
 })
 
-// router.put('user', async(req, res) =>{
-
-// })
 
 router.post('/login', async(req, res, next)=>{
     try {
@@ -40,13 +37,73 @@ router.post('/login', async(req, res, next)=>{
     }
 })
 
-// router.post('/pokemonCard', async(req, res) =>{
+router.get('/:id', async(req, res, next) =>{
+    try {
+        const {id} = req.params
+        const user = await service.find(id);
+        res.status(200).json(user)
+    } catch (error) {
+        next(error)
+    }
+})
 
-// })
+router.put('/', async(req, res, next) =>{
+    try {
+        const {
+            userId,
+            name,
+            nickname,
+            region,
+            gender,
+            age,
+            trainerClass,
+        } = req.body;
+        const user = await service.updateUsarData(userId,name,nickname,region,gender,age,trainerClass,)
+        res.status(200).json(user)
+    } catch (error) {
+        next(error)
+    }
+})
 
-// router.delete('/pokemonCard', async(req, res) =>{
+router.post('/pokemonCards', async(req, res, next) =>{
+    try {
+        // console.log(req.body)
+        const {
+            trainer_id,
+            key_id,
+            name,
+            nickname,
+            picture,
+            moves,
+            gender,
+            types
+        } = req.body
+        const pokemon = await service.addPokemonCard(trainer_id, key_id, name, nickname, picture, moves, gender, types)
+        res.status(200).json(pokemon)
+    } catch (error) {
+        next(error)
+    }
+})
 
-// })
+router.delete('/pokemonCards/:id', async(req, res, next) =>{
+    try {
+        const {id} = req.params;
+        const pokemon = await service.removePokemonCard(id);
+        res.status(200).json(pokemon)
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.get('/pokemonCards/:id', async(req, res,next) =>{
+    try {
+        const {id} = req.params;
+        const pokemons = await service.getPokemons(id);
+        res.status(200).json(pokemons);
+    } catch (error) {
+        next(error)
+    }
+})
 
 
 module.exports = router
